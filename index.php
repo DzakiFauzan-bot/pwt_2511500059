@@ -3,7 +3,7 @@ session_start();
 require_once("config/koneksi.php");
 if (isset($_SESSION['level'])) {
   $level = $_SESSION['level'];
-?>
+  ?>
   <!DOCTYPE html>
   <!--
 This is a starter template page. Use this page to start your new project from
@@ -17,7 +17,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>AdminLTE 3 | Starter</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -74,7 +75,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
           <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
 
@@ -109,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
 
               <li class="nav-item menu-open">
-                <a href="#" class="nav-link active">
+                <a href="" class="nav-link active">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     Master
@@ -117,28 +119,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </p>
                 </a>
 
-                <?php if ($level == 'admin') : ?>
+                <?php if ($level == 'admin'): ?>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="index.php?page=guru" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Guru</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="index.php?page=siswa" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Siswa</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="#" class="nav-link active">
+                      <a href="index.php?page=mapel" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Mata Pelajaran</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="index.php?page=kelas" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Kelas</p>
                       </a>
@@ -146,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </ul>
                 <?php endif; ?>
 
-                <?php if ($level == 'guru') : ?>
+                <?php if ($level == 'guru'): ?>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
                       <a href="#" class="nav-link">
@@ -163,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </ul>
                 <?php endif; ?>
 
-                <?php if ($level == 'siswa') : ?>
+                <?php if ($level == 'siswa'): ?>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
                       <a href="#" class="nav-link">
@@ -236,7 +238,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <h5 class="card-title">Dashboard</h5>
 
                     <p class="card-text">
-                      Pak AP mainkan SuperDop1t kamiiii
+
+                      <?php
+                      if (isset($_GET['page'])) {
+                        $page = $_GET['page'];
+                      } else {
+                        $page = "";
+                      }
+
+                      if ($page == "") {
+                        include "page/dashboard.php";
+                      } elseif (!file_exists("page/$page.php")) {
+                        echo "File Tidak Ditemukan";
+                      } else {
+                        include "page/$page.php";
+                      }
+                      ?>
                     </p>
 
                   </div>
@@ -288,7 +305,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </body>
 
   </html>
-<?php
+  <?php
 } else {
   echo "<meta http-equiv='refresh' content='0; url=login.php'>";
 }
