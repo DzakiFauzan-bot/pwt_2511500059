@@ -10,7 +10,7 @@
 
 <?php
 // kode otomatis
-$carikode = mysqli_query($koneksi, "SELECT max(kd_mapel) FROM mapel") or die(mysqli_error());
+$carikode = mysqli_query($koneksi, "SELECT max(kd_mapel) FROM mapel") or die(mysqli_error($koneksi));
 $datakode = mysqli_fetch_array($carikode);
 
 if ($datakode) {

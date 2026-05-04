@@ -122,13 +122,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <?php if ($level == 'admin'): ?>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="index.php?page=guru" class="nav-link">
+                      <a href="index.php?page=guru" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Guru</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="index.php?page=siswa" class="nav-link">
+                      <a href="index.php?page=siswa" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Siswa</p>
                       </a>
@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <?php if ($level == 'guru'): ?>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Guru</p>
                       </a>
