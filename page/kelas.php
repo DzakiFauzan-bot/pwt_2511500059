@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">Data Siswa</h1>
+        <h1 class="m-0">Data Kelas</h1>
       </div>
     </div>
   </div>
@@ -11,13 +11,13 @@
 <?php
 if(isset($_GET['action'])) {
     if($_GET['action'] == "hapus") {
-        $Nis =$_GET['Nis'];
-        $query = mysqli_query($koneksi, "DELETE FROM siswa WHERE nis ='$nis'");
+        $Id =$_GET['Id'];
+        $query = mysqli_query($koneksi, "DELETE FROM kelas WHERE Id_kelas ='$Id'");
         if ($query) {
             echo '
             <div class="alert alert-warning alert-dismissible">
             Berhasil di hapus</div>';
-            echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=kelas">';
         }
     }
 }
@@ -26,33 +26,31 @@ if(isset($_GET['action'])) {
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <a href="index.php?page=tambah_siswa" class="btn btn-primary btn-sm">Tambah Siswa</a>
+                <a href="index.php?page=tambah_kelas" class="btn btn-primary btn-sm">Tambah Kelas</a>
                 <table class="table table-striped">
                     <tread>
                         <tr>
-                            <th>nis siswa</th>
-                            <th>nama siswa</th>
-                            <th>no hp</th>
-                            <th>id kelas</th>
+                            <th>No</th>
+                            <th>Id Kelas</th>
+                            <th>Nama Kelas</th>
+                            <th>Aksi</th>
                         </tr>
                     </tread>
                     <?php
                     $no = 0;
-                    $query = mysqli_query($koneksi, "SELECT * FROM siswa");
+                    $query = mysqli_query($koneksi, "SELECT * FROM kelas");
                     while ($result = mysqli_fetch_array($query) ) {
                         $no++
                     ?>
                         <tbody>
                             <tr>
-                                <td><?=$result['nis_siswa']; ?></td>
-                                <td><?=$result['nama_siswa']; ?></td>
-                                <td><?=$result['no_hp']; ?></td>
-                                <td><?=$result['id_kelas']; ?></td>
-
+                                <td><?= $no;?></td>
+                                <td><?=$result['Id_kelas']; ?></td>
+                                <td><?=$result['Nm_kelas']; ?></td>
                                 <td>
-                                    <a href="index.php?page=siswa&action=hapus&Nis=<?= $result['nis']?>" title="">
+                                    <a href="index.php?page=kelas&action=hapus&Id=<?= $result['Id_kelas']?>" title="">
                                         <span class="badge badge-danger">Hapus</span></a>
-                                    <a href ="index.php?page=edit_siswa&nis_siswa=<?= $result['nis_siswa']?>" title="">
+                                    <a href ="index.php?page=edit_kelas&Id=<?= $result['Id_kelas']?>" title="">
                                         <span class="badge badge-warning">Edit</span></a>
                                 </td>
                             </tr>
