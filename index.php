@@ -146,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="index.php?page=ekstrakurikuler" class="nav-link active">
+                      <a href="index.php?page=ekstra2511500059" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ektrakurikuler</p>
                       </a>

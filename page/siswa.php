@@ -11,7 +11,7 @@
 <?php
 if(isset($_GET['action'])) {
     if($_GET['action'] == "hapus") {
-        $Nis =$_GET['Nis'];
+        $Nis =$_GET['nis_siswa'];
         $query = mysqli_query($koneksi, "DELETE FROM siswa WHERE nis ='$nis'");
         if ($query) {
             echo '
