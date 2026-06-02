@@ -2,37 +2,40 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">edit_guru</h1>
+                <h1 class="m-0 text-dark">Edit Data Guru</h1>
             </div>
         </div>
     </div>
 </div>
 
-<?php
-$Kd = $_GET['kd'];
-$edit = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM guru WHERE id_guru='$Kd'"));
+    <?php
+    $kd = $_GET['kd'];
+    $edit = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM guru WHERE Kd_guru='$kd'"));
 
-if(isset($_POST['tambah'])){
-    $id_guru = $_POST['id_guru'];
-    $nama = $_POST['nama'];
-    $mata_pelajaran = $_POST['mata_pelajaran'];
-    $alamat = $_POST['alamat'];
-    $no_hp = $_POST['no_hp'];
+    if(isset($_POST['tambah'])){
+        $kd_guru = $_POST['kd_guru'];
+        $Nm_guru = $_POST['Nm_guru'];
+        $Jenkel = $_POST['Jenkel'];
+        $Pend_terakhir = $_POST['Pend_terakhir'];
+        $Hp = $_POST['Hp'];
+        $Alamat = $_POST['Alamat'];
 
-    $insert = mysqli_query($koneksi, "UPDATE guru SET Id_guru='$id_guru', nama='$nama', mata_pelajaran='$mata_pelajaran', alamat='$alamat', no_hp='$no_hp' WHERE id_guru='$Kd'");
-    if($insert){
-        echo '<div class="alert alert-info-dismissible">
-        <button type="button" class="close" data-dismiss="alert"aria-hidden="true">X</button>
-        <h5><i class="icon fas fa-info"></i> Info </h5>
-        <h4>Berhasil Disimpan</h4></div>';
-        echo '<meta http-equiv="refresh" content="1;url=index.php?page=guru">';
-    }else {
-       echo '<div class="alert alert-warning-dismissible">
-       <button type="button" class="close" data-dismiss="alert"aria-hidden="true">X</button>
-       <h5><i class="icon fas fa-info"></i> Info </h5>
-       <h4>Gagal Disimpan</h4></div>';
+        $insert = mysqli_query($koneksi, "UPDATE guru SET Nm_guru='$Nm_guru', Jenkel='$Jenkel', Pend_terakhir='$Pend_terakhir', Hp='$Hp', Alamat='$Alamat' WHERE Kd_guru='$kd_guru'");
+        if ($insert) {
+            echo '<div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+            <h5><i class="icon fas fa-info"></i> Info</h5>
+            <h4>Berhasil Di Simpan</h4></div>';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=guru">';
+        } else {
+            echo '<div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                <h5><i class="icon fas fa-info"></i> Info</h5>
+                <h4>Gagal Di Simpan</h4>
+            </div>';
+        }
     }
-}
+
 ?>
 <section class="content">
     <div class="container-fluid">
@@ -40,30 +43,45 @@ if(isset($_POST['tambah'])){
             <div class="card-body">
                 <div class="card-body p-2">
                     <form method="POST" action="">
-                        <div class="form-group">
-                            <label for="id_guru">id_guru</label>
-                            <input type="text" name="id_guru" value="<?=$edit['id_guru']; ?>" class="form-control" readonly>
+                        <div class="form-group
+                        ">
+                            <label for="Kd_guru">Kode Guru:</label>
+                            <input type="text" name="kd_guru" value="<?= $edit['Kd_guru']; ?>" placeholder="Masukkan Kode Guru" class="form-control" >
                         </div>
                         <div class="form-group">
-                            <label for="nama">nama</label>
-                            <input type="text" name="nama" value="<?=$edit['nama']; ?>" id="nama" placeholder="nama" class="form-control">
+                            <label for="Nm_guru">Nama Guru:</label>
+                            <input type="text" name="Nm_guru" id="Nm_guru" value="<?= $edit['Nm_guru']; ?>" placeholder="Masukkan Nama Guru" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="mata_pelajaran">mata_pelajaran</label>
-                            <input type="text" name="mata_pelajaran" value="<?=$edit['mata_pelajaran']; ?>" id="mata_pelajaran" placeholder="Mata Pelajaran" class="form-control">
-                        </div>
-                        
-                        </div>
-                        <div class="form-group">
-                            <label for="alamat">alamat</label>
-                            <input type="text" name="alamat" value="<?=$edit['alamat']; ?>" id="alamat" placeholder="Alamat" class="form-control">
+                            <label for="Jenkel">Jenis Kelamin:</label>
+                            <select name="Jenkel" id="Jenkel" class="form-control">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki" <?= ($edit['Jenkel'] == 'Laki-laki') ? 'selected' : ''; ?>>Laki-laki</option>
+                                <option value="Perempuan" <?= ($edit['Jenkel'] == 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="no_hp">no_hp</label>
-                            <input type="text" name="no_hp" value="<?=$edit['no_hp']; ?>" id="no_hp" placeholder="Nomor Hp" class="form-control">
+                            <label for="Pend_terakhir">Pendidikan Terakhir:</label>
+                            <select name="Pend_terakhir" id="Pend_terakhir" class="form-control">
+                                <option value="">Pilih Pendidikan Terakhir</option>
+                                <option value="SMA" <?= ($edit['Pend_terakhir'] == 'SMA') ? 'selected' : ''; ?>>SMA</option>
+                                <option value="D3" <?= ($edit['Pend_terakhir'] == 'D3') ? 'selected' : ''; ?>>D3</option>
+                                <option value="S1" <?= ($edit['Pend_terakhir'] == 'S1') ? 'selected' : ''; ?>>S1</option>
+                                <option value="S2" <?= ($edit['Pend_terakhir'] == 'S2') ? 'selected' : ''; ?>>S2</option>
+                                <option value="S3" <?= ($edit['Pend_terakhir'] == 'S3') ? 'selected' : ''; ?>>S3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Hp">No HP:</label>
+                            <input type="number" name="Hp" id="Hp" value="<?= $edit['Hp']; ?>" placeholder="Masukkan No HP" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="Alamat">Alamat:</label>
+                            <input type="text" name="Alamat" id="Alamat" value="<?= $edit['Alamat']; ?>" placeholder="Masukkan Alamat" class="form-control">
                         </div>
                         <div class="card-footer">
-                            <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
+                            <input type="submit" name="tambah" class="btn btn-primary" value="Simpan">
+                            <a href="index.php?page=guru" class="btn btn-danger">Batal</a>
                         </div>
                     </form>
                 </div>

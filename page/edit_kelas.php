@@ -2,28 +2,27 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Edit Mata Pelajaran</h1>
+                <h1 class="m-0 text-dark">Edit Kelas</h1>
             </div>
         </div>
     </div>
 </div>
 
     <?php
-    $kd = $_GET['kd'];
-    $edit = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM mapel WHERE Kd_mapel='$kd'"));
+    $Id = $_GET['Id'];
+    $edit = mysqli_fetch_array(mysqli_query($koneksi, "SELECT * FROM kelas WHERE Id_kelas='$Id'"));
 
     if(isset($_POST['tambah'])){
-        $kd_mapel = $_POST['kd_mapel'];
-        $Nm_mapel = $_POST['Nm_mapel'];
-        $Kkm = $_POST['Kkm'];
+        $kd_kelas = $_POST['Id_kelas'];
+        $Nm_kelas = $_POST['Nm_kelas'];
 
-        $insert = mysqli_query($koneksi, "UPDATE mapel SET Nm_mapel='$Nm_mapel', Kkm='$Kkm' WHERE Kd_mapel='$kd_mapel'");
+        $insert = mysqli_query($koneksi, "UPDATE kelas SET Nm_kelas='$Nm_kelas' WHERE Id_kelas='$kd_kelas'");
         if ($insert) {
             echo '<div class="alert alert-info alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
             <h5><i class="icon fas fa-info"></i> Info</h5>
             <h4>Berhasil Di Simpan</h4></div>';
-            echo '<meta http-equiv="refresh" content="1;url=index.php?page=mapel">';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=kelas">';
         } else {
             echo '<div class="alert alert-warning alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
@@ -42,20 +41,16 @@
                     <form method="POST" action="">
                         <div class="form-group
                         ">
-                            <label for="Kd_mapel">Kode Mapel:</label>
-                            <input type="number" name="kd_mapel" value="<?= $edit['Kd_mapel']; ?>" placeholder="Masukkan Kode Mapel" class="form-control" readonly>
+                            <label for="Kd_kelas">Id Kelas:</label>
+                            <input type="number" name="Id_kelas" value="<?= $edit['Id_kelas']; ?>" placeholder="Masukkan Id Kelas" class="form-control" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="Nm_mapel">Nama Mapel:</label>
-                            <input type="text" name="Nm_mapel" id="Nm_mapel" value="<?= $edit['Nm_mapel']; ?>" placeholder="Masukkan Nama Mapel " class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="Kkm">KKM:</label>
-                            <input type="number" name="Kkm" id="Kkm" value="<?= $edit['Kkm']; ?>" placeholder="Masukkan KKM" class="form-control">
+                            <label for="Nm_kelas">Nama Kelas:</label>
+                            <input type="text" name="Nm_kelas" id="Nm_kelas" value="<?= $edit['Nm_kelas']; ?>" placeholder="Masukkan Nama Kelas" class="form-control">
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="tambah" class="btn btn-primary" value="Simpan">
-                            <a href="index.php?page=mapel" class="btn btn-danger">Batal</a>
+                            <a href="index.php?page=kelas" class="btn btn-danger">Batal</a>
                         </div>
                     </form>
                 </div>

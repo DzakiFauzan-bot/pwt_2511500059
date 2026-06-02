@@ -1,45 +1,51 @@
+<?php
+include "config/koneksi.php"
+?>
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Data Siswa</h1>
+                <h1 class="m-0 text-dark">Tambah Data Siswa</h1>
             </div>
         </div>
     </div>
 </div>
+
 <?php
 //kode otomatis
-$carikode = mysqli_query($koneksi, "select max(Nis) from siswa") or die(mysqli_error($koneksi));
+$carikode = mysqli_query($koneksi, "SELECT MAX(Nis) FROM siswa") or die(mysqli_error($koneksi));
 $datakode = mysqli_fetch_array($carikode);
 if ($datakode) {
     $nilaikode = substr($datakode[0], 2);
     $kode = (int) $nilaikode;
     $kode = $kode + 1;
-    $hasilkode = "123" . str_pad($kode, 3, "0", STR_PAD_LEFT);
-} else {
-    $hasilkode = "123001";
-}
-$_SESSION["KODE"] = $hasilkode;
+    $hasilkode = "M-" . str_pad($kode, 3, "0", STR_PAD_LEFT);
+} else {$hasilkode ="M-";}
+$_SESSION['KODE'] = $hasilkode;
 
-if (isset($_POST['tambah'])) {
-    $nis_siswa = $_POST['nis_siswa'];
-    $nama_siswa = $_POST['nama_siswa'];
-    $no_hp = $_POST['no_hp'];
-    $id_kelas = $_POST['id_kelas'];
+if(isset($_POST['tambah'])){
+        $nis = $_POST['Nis'];
+        $id_user = $_POST['Id_user']; 
+        $nm_siswa = $_POST['Nm_siswa'];
+        $jenkel = $_POST['Jenkel'];
+        $hp = $_POST['Hp'];
+        $id_kelas = $_POST['Id_kelas'];
 
-    $insert = mysqli_query($koneksi, "INSERT INTO siswa values ('$nis_siswa', '$nama_siswa', '$no_hp', '$id_kelas')");
-    if ($insert) {
-        echo '<div class="alert alert-info-dismissible">
-            <button type="button" class="close" data-dismiss="alert"aria-hidden="true">X</button>
-            <h5><i class="icon fas fa-info"></i> Info </h5>
-            <h4>Berhasil Disimpan</h4></div>';
-        echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
-    } else {
-        echo '<div class="alert alert-warning-dismissible">
-           <button type="button" class="close" data-dismiss="alert"aria-hidden="true">X</button>
-           <h5><i class="icon fas fa-info"></i> Info </h5>
-           <h4>Gagal Disimpan</h4></div>';
-    }
+        $insert = mysqli_query($koneksi, "INSERT INTO siswa VALUES ('$nis', '$id_user', '$nm_siswa', '$jenkel', '$hp', '$id_kelas')");
+        $insertkelas = mysqli_query($koneksi, "INSERT INTO kelas (Id_kelas) VALUES ('$id_kelas')");
+        if ($insert) {
+            echo '<div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+            <h5><i class="icon fas fa-info"></i> Info</h5>
+            <h4>Berhasil Di Simpan</h4></div>';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
+        } else {
+            echo '<div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                <h5><i class="icon fas fa-info"></i> Info</h5>
+                <h4>Gagal Di Simpan</h4>
+            </div>';
+        }
 }
 ?>
 <section class="content">
@@ -48,27 +54,38 @@ if (isset($_POST['tambah'])) {
             <div class="card-body">
                 <div class="card-body p-2">
                     <form method="POST" action="">
-                        <div class="form-group">
-                            <label for="nis_siswa">nis siswa</label>
-                            <input type="text" name="nis_siswa" value="<?= $hasilkode; ?>" placeholder="nis siswa"
-                                class="form-control" readonly>
+                        <div class="form-group
+                        ">
+                            <label for="Nis">Nis:</label>
+                            <input type="number" name="Nis" id="Nis" placeholder="Masukkan Nis" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="nama_siswa">nama Siswa</label>
-                            <input type="text" name="nama_siswa" id="nama_siswa" placeholder="nama siswa"
-                                class="form-control">
+                            <label for="Id_user">Id User:</label>
+                            <input type="text" name="Id_user" id="Id_user" placeholder="Masukkan Id User" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="no_hp">no hp</label>
-                            <input type="text" name="no_hp" id="no_hp" placeholder="no hp" class="form-control">
+                            <label for="Nm_siswa">Nama Siswa:</label>
+                            <input type="text" name="Nm_siswa" id="Nm_siswa" placeholder="Masukkan Nama Siswa" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="id_kelas">id Kelas</label>
-                            <input type="text" name="id_kelas" id="id_kelas" placeholder="id Kelas"
-                                class="form-control">
+                            <label for="Jenkel">Jenis Kelamin:</label>
+                            <select name="Jenkel" id="Jenkel" class="form-control">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Hp">No HP:</label>
+                            <input type="number" name="Hp" id="Hp" placeholder="Masukkan No HP" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="Id_kelas">Id Kelas:</label>
+                            <input type="text" name="Id_kelas" id="Id_kelas" placeholder="Masukkan Id Kelas" class="form-control">
                         </div>
                         <div class="card-footer">
-                            <input type="submit" class="btn btn-primary" name="tambah" value="simpan">
+                            <input type="submit" name="tambah" class="btn btn-primary" value="Simpan">
+                            <a href="index.php?page=siswa" class="btn btn-danger">Batal</a>
                         </div>
                     </form>
                 </div>
